@@ -9,6 +9,7 @@ public class InPatient extends Patient{
      private Integer roomNumber;
      private double dailyCharges;
      private Integer daysAdmitted;
+     private Boolean admissionState;
 
 
     public InPatient(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<Integer> pastMedicalRecordIds, Date registrationDate, Date admissionDate, double dailyCharges, Integer daysAdmitted, Integer roomNumber) {
@@ -60,6 +61,10 @@ public class InPatient extends Patient{
         this.roomNumber = roomNumber;
     }
 
+    public Boolean getAdmissionState() {
+        return admissionState;
+    }
+
     // overload and display Info
     @Override
     public void displayInfo() {
@@ -72,5 +77,28 @@ public class InPatient extends Patient{
     }
 
 
-   
+
+      // admit
+       public void admit(){
+               admissionState = true;
+              this.admissionDate = new Date();
+       }
+
+       // TODO check this
+       public void  discharge() {
+            admissionState = false;
+       }
+
+
+
+       public Double totalRoomCost(){
+          return dailyCharges * daysAdmitted;
+       }
+
+
+
+
+
+
+
 }
