@@ -64,6 +64,24 @@ public class Surgeon extends  Doctor{
 
 
 
+    public void performSurgery(){
+     surgeriesPerformed++;
+
+    }
+
+    public void scheduleSurgery(Date date){
+        if(upcomingSurgeryDates.contains(date)){
+            System.out.println("no place in this date");
+            return;
+        }
+        upcomingSurgeryDates.add(date);
+    }
+
+    public int getUpcomingCount(){
+        return upcomingSurgeryDates.size();
+    }
+
+
 
 
 

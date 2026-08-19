@@ -47,8 +47,9 @@ public class Doctor extends  Person {
     }
 
     public void setConsultationFee(Double consultationFee) {
-        if(HelperUtils.isValidAmount(consultationFee)){
+        if(!HelperUtils.isValidAmount(consultationFee)){
             System.out.println("consultation fee must not be negative");
+            return;
         }
         this.consultationFee = consultationFee;
     }

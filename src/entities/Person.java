@@ -77,6 +77,10 @@ public class Person implements Displayable {
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
+        if(!HelperUtils.isValidDate(dateOfBirth)) {
+            System.out.println("Invalid birth date");
+            return;
+        }
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -99,6 +103,7 @@ public class Person implements Displayable {
     public void setFirstName(String firstName) {
         if(HelperUtils.isEmptyString(firstName)){
             System.out.println("First name is required");
+            return;
         }
         this.firstName = firstName;
     }
@@ -118,8 +123,8 @@ public class Person implements Displayable {
         return id;
     }
 
-    public void setId(long id) {
-        if(HelperUtils.isValidId(id)) {
+    public void setId(Long id) {
+        if(!HelperUtils.isValidId(id)) {
             System.out.println("Invalid Id");
         }
         this.id = id;

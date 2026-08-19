@@ -86,7 +86,9 @@ public class InPatient extends Patient{
 
        // TODO check this
        public void  discharge() {
-            admissionState = false;
+        admissionState = false;
+        this.admissionDate = null;
+
        }
 
 
