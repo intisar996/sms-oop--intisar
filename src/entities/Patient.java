@@ -11,12 +11,12 @@ public class Patient extends  Person{
     private String emergencyContact;
     private Date registrationDate;
     private List<String> allergies;
-    private List<String>  pastMedicalRecordIds;
+    private List<Integer>  pastMedicalRecordIds;
     private Double outstandingBalance;
     private Boolean isInsured;
 
 
-    public Patient(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<String> pastMedicalRecordIds, Date registrationDate) {
+    public Patient(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<Integer> pastMedicalRecordIds, Date registrationDate) {
         super(active_status, address, age, dateOfBirth, email, firstName, gender, id, lastName, nationalId, phoneNumber);
         this.allergies = allergies;
         this.bloodGroup = bloodGroup;
@@ -27,7 +27,7 @@ public class Patient extends  Person{
         this.registrationDate = registrationDate;
     }
 
-    public Patient(long id, String firstName, String lastName, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<String> pastMedicalRecordIds, Date registrationDate) {
+    public Patient(long id, String firstName, String lastName, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<Integer> pastMedicalRecordIds, Date registrationDate) {
         super(id, firstName, lastName);
         this.allergies = allergies;
         this.bloodGroup = bloodGroup;
@@ -66,6 +66,29 @@ public class Patient extends  Person{
     }
 
 
+     //Patient record + balance methods   [Task 1.2]
+
+    // add patient record id to list
+    public void addRecordId(Integer recordId){
+        pastMedicalRecordIds.add(recordId);
+    }
+
+    // count patient record
+    public int getRecordCount(){
+        return pastMedicalRecordIds.size();
+    }
+
+
+    // add to balance
+
+    public void addToBalance(double amount){
+        outstandingBalance += amount;
+    }
+
+    // clear balance
+    public void  clearBalance(){
+        outstandingBalance = 0.0;
+    }
 
 
 
