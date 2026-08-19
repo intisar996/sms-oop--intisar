@@ -6,10 +6,9 @@ import java.util.List;
 public class Doctor extends  Person {
 
 
-
-    private String  specialization;
-    private Integer  experienceYears;
-    private Double  consultationFee;
+    private String specialization;
+    private Integer experienceYears;
+    private Double consultationFee;
     private List<String> timesSlots;
     private List<Long> assignedPatientIds;
     private boolean isOnCall;
@@ -34,10 +33,59 @@ public class Doctor extends  Person {
         this.timesSlots = timesSlots;
     }
 
+
+    public List<Long> getAssignedPatientIds() {
+        return assignedPatientIds;
+    }
+
+    public void setAssignedPatientIds(List<Long> assignedPatientIds) {
+        this.assignedPatientIds = assignedPatientIds;
+    }
+
+    public Double getConsultationFee() {
+        return consultationFee;
+    }
+
+    public void setConsultationFee(Double consultationFee) {
+        this.consultationFee = consultationFee;
+    }
+
+    public Integer getExperienceYears() {
+        return experienceYears;
+    }
+
+    public void setExperienceYears(Integer experienceYears) {
+        this.experienceYears = experienceYears;
+    }
+
+    public boolean isOnCall() {
+        return isOnCall;
+    }
+
+    public void setOnCall(boolean onCall) {
+        isOnCall = onCall;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public List<String> getTimesSlots() {
+        return timesSlots;
+    }
+
+    public void setTimesSlots(List<String> timesSlots) {
+        this.timesSlots = timesSlots;
+    }
+
     @Override
     public void displayInfo() {
 
-        System.out.println( "Doctor{" +
+        System.out.println("Doctor{" +
                 "assignedPatientIds=" + assignedPatientIds +
                 ", specialization='" + specialization + '\'' +
                 ", experienceYears=" + experienceYears +
@@ -48,5 +96,27 @@ public class Doctor extends  Person {
     }
 
 
-   
+    public void addSlot(String slot) {
+            timesSlots.add(slot);
+    }
+
+
+    public void removeSlot(String slot) {
+        for (int i = 0; i < timesSlots.size(); i++) {
+            if (timesSlots.contains(slot)) {
+                timesSlots.remove(i);
+            }
+        }
+    }
+
+
+    public boolean hasSlot(String slot) {
+        return timesSlots.contains(slot);
+    }
+
+
+
+
+
+
 }
