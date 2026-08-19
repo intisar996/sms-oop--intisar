@@ -4,6 +4,7 @@ import interfaces.Displayable;
 import utils.HelperUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Person implements Displayable {
 
@@ -170,9 +171,59 @@ public class Person implements Displayable {
     public String displaySummary() {
         return id + " " + firstName + " " +  lastName;
     }
-    
+
      // get full name
     public String getFullName(){
         return firstName + " " + lastName;
     }
+
+
+
+    // to String
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "active_status=" + active_status +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", gender='" + gender + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", nationalId='" + nationalId + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
+
+    // comparing id if already in list or not
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Person person)) return false;
+        return id == person.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+
+    //check if is Adult
+    public boolean isAdult(){
+        if(age >= 18){
+            System.out.println("Adult");
+            return true;
+        }else {
+            System.out.println("child");
+            return false;
+        }
+
+    }
+
+
+
 }
