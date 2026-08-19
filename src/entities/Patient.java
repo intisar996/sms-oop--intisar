@@ -18,43 +18,48 @@ public class Patient extends  Person{
     private Boolean isInsured;
 
 
-    public Patient(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<Integer> pastMedicalRecordIds, Date registrationDate) {
-        super(active_status, address, age, dateOfBirth, email, firstName, gender, id, lastName, nationalId, phoneNumber);
-        this.allergies = allergies;
-        this.bloodGroup = bloodGroup;
-        this.emergencyContact = emergencyContact;
-        this.isInsured = isInsured;
-        this.outstandingBalance = outstandingBalance;
+    public Patient(boolean active_status, String address, Integer age,
+                   Date dateOfBirth, String email, String firstName,
+                   String gender, long id, String lastName,
+                   String nationalId, String phoneNumber,
+                   List<String> allergies, String bloodGroup,
+                   String emergencyContact, Boolean isInsured,
+                   Double outstandingBalance,
+                   List<Integer> pastMedicalRecordIds,
+                   Date registrationDate) {
+
+        super(active_status, address, age, dateOfBirth, email, firstName,
+                gender, id, lastName, nationalId, phoneNumber);
+
+        setAllergies(allergies);
+        setBloodGroup(bloodGroup);
+        setEmergencyContact(emergencyContact);
+        setInsured(isInsured);
+        setOutstandingBalance(outstandingBalance);
         this.pastMedicalRecordIds = pastMedicalRecordIds;
-        this.registrationDate = registrationDate;
-    }
+        setRegistrationDate(registrationDate);
 
-    public Patient(long id, String firstName, String lastName, List<String> allergies, String bloodGroup, String emergencyContact, Boolean isInsured, Double outstandingBalance, List<Integer> pastMedicalRecordIds, Date registrationDate) {
-        super(id, firstName, lastName);
-        this.allergies = allergies;
-        this.bloodGroup = bloodGroup;
-        this.emergencyContact = emergencyContact;
-        this.isInsured = isInsured;
-        this.outstandingBalance = outstandingBalance;
-        this.pastMedicalRecordIds = pastMedicalRecordIds;
-        this.registrationDate = registrationDate;
     }
 
 
 
-  // overload and display Info
-    @Override
-    public void displayInfo() {
-        System.out.println("Patient{" +
-                "allergies=" + allergies +
-                ", bloodGroup='" + bloodGroup + '\'' +
-                ", emergencyContact='" + emergencyContact + '\'' +
-                ", registrationDate=" + registrationDate +
-                ", pastMedicalRecordIds=" + pastMedicalRecordIds +
-                ", outstandingBalance=" + outstandingBalance +
-                ", isInsured=" + isInsured +
-                '}');
-    }
+
+    // overload and display Info
+  @Override
+  public void displayInfo() {
+      super.displayInfo();
+
+      System.out.println("Patient{" +
+              "allergies=" + allergies +
+              ", bloodGroup='" + bloodGroup + '\'' +
+              ", emergencyContact='" + emergencyContact + '\'' +
+              ", registrationDate=" + registrationDate +
+              ", pastMedicalRecordIds=" + pastMedicalRecordIds +
+              ", outstandingBalance=" + outstandingBalance +
+              ", isInsured=" + isInsured +
+              '}');
+  }
+
 
 
     public List<String> getAllergies() {
@@ -62,6 +67,7 @@ public class Patient extends  Person{
     }
 
     public void setAllergies(List<String> allergies) {
+
         this.allergies = allergies;
     }
 
@@ -114,16 +120,26 @@ public class Patient extends  Person{
 
     // add allergy to list
      public void addAllergy(String allergy ){
+         if (HelperUtils.isEmptyString(allergy)) {
+             System.out.println("Allergy is required");
+             return;
+         }
              allergies.add(allergy);
      }
 
      // check if patient hasAllergy
-    public boolean hasAllergy(){
-        return !allergies.isEmpty();
+    public boolean hasAllergy(String allergy){
+        return allergies.contains(allergy);
+    }
+
+    public void listAllergies() {
+        for (String allergy : allergies) {
+            System.out.println(allergy);
+        }
     }
 
 
-     //Patient record + balance methods   [Task 1.2]
+    //Patient record + balance methods   [Task 1.2]
 
     // add patient record id to list
     public void addRecordId(Integer recordId){
@@ -139,16 +155,19 @@ public class Patient extends  Person{
     // add to balance
 
     public double addToBalance(double amount){
-        if(amount > 0 ){
+        if(HelperUtils.isValidAmount(amount)){
             return outstandingBalance += amount;
         }
-          return   outstandingBalance;
+        System.out.println("Balance must not be negative");
+          return  outstandingBalance;
     }
 
     // clear balance
     public void  clearBalance(){
         outstandingBalance = 0.0;
     }
+
+
 
 
 }

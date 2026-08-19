@@ -1,6 +1,7 @@
 package entities;
 
 import interfaces.Displayable;
+import utils.HelperUtils;
 
 import java.sql.Time;
 import java.util.Date;
@@ -17,21 +18,21 @@ public class Appointment implements Displayable {
     private Boolean isFollowUp;
 
     public enum  Status {
-        complete,
-        cancel,
-        Reschedule
+        COMPLETE,
+        CANCEL,
+        RESCHEDULE
 
     }
 
     public Appointment(Date appointmentDate, Long appointmentId, Time appointmentTime, Boolean isFollowUp, Long doctorId, Long patientId, String reason, Status status) {
-        this.appointmentDate = appointmentDate;
-        this.appointmentId = appointmentId;
-        this.appointmentTime = appointmentTime;
-        this.isFollowUp = isFollowUp;
-        this.doctorId = doctorId;
-        this.patientId = patientId;
-        this.reason = reason;
-        this.status = status;
+        setAppointmentDate(appointmentDate);
+        setAppointmentId(appointmentId);
+        setAppointmentTime(appointmentTime);
+        setFollowUp(isFollowUp);
+        setDoctorId(doctorId);
+        setPatientId(patientId);
+        setReason(reason);
+        setStatus(status);
     }
 
     public Date getAppointmentDate() {
@@ -39,6 +40,10 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentDate(Date appointmentDate) {
+        if (!HelperUtils.isValidDate(appointmentDate)) {
+            System.out.println("Invalid appointment Date ");
+            return;
+        }
         this.appointmentDate = appointmentDate;
     }
 
@@ -47,6 +52,10 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentId(Long appointmentId) {
+        if (!HelperUtils.isValidId(appointmentId)) {
+            System.out.println("Invalid appointment ID");
+            return;
+        }
         this.appointmentId = appointmentId;
     }
 
@@ -55,6 +64,10 @@ public class Appointment implements Displayable {
     }
 
     public void setAppointmentTime(Time appointmentTime) {
+        if (appointmentTime == null) {
+            System.out.println("Appointment time is required");
+            return;
+        }
         this.appointmentTime = appointmentTime;
     }
 
@@ -63,6 +76,10 @@ public class Appointment implements Displayable {
     }
 
     public void setDoctorId(Long doctorId) {
+        if (!HelperUtils.isValidId(doctorId)) {
+            System.out.println("Invalid doctor ID");
+            return;
+        }
         this.doctorId = doctorId;
     }
 
@@ -79,6 +96,10 @@ public class Appointment implements Displayable {
     }
 
     public void setPatientId(Long patientId) {
+        if (!HelperUtils.isValidId(patientId)) {
+            System.out.println("Invalid patient ID");
+            return;
+        }
         this.patientId = patientId;
     }
 
@@ -87,12 +108,26 @@ public class Appointment implements Displayable {
     }
 
     public void setReason(String reason) {
+        if (HelperUtils.isEmptyString(reason)) {
+            System.out.println("Reason is required");
+            return;
+        }
         this.reason = reason;
     }
 
     public Status getStatus() {
         return status;
     }
+
+    public void setStatus(Status status) {
+        if (status == null) {
+            System.out.println("Invalid status");
+            return;
+        }
+
+        this.status = status;
+    }
+
 
     @Override
     public void displayInfo() {
@@ -107,9 +142,13 @@ public class Appointment implements Displayable {
                 ", isFollowUp=" + isFollowUp +
                 '}');
     }
+
+
     @Override
     public String displaySummary() {
-        return "";
+        return appointmentId + " | Patient: " + patientId +
+                " | Doctor: " + doctorId +
+                " | Date: " + appointmentDate;
     }
 
 
@@ -117,18 +156,18 @@ public class Appointment implements Displayable {
     // change status
 
     public void cancel(){
-        status = Status.cancel;
+        status = Status.CANCEL;
     }
 
 
     public void complete(){
-        status = Status.complete;
+        status = Status.COMPLETE;
     }
 
-    public void reschedule(Date date, Time time, Status status){
+    public void reschedule(Date date, Time time){
         appointmentDate =date;
         appointmentTime = time;
-        status = Status.Reschedule;
+        this.status = Status.RESCHEDULE;
     }
 
 

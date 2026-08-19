@@ -10,7 +10,7 @@ public class Person implements Displayable {
 
 
      // methods
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
@@ -20,39 +20,43 @@ public class Person implements Displayable {
     private String address;
     private String nationalId;
     private Integer age;
-    private boolean active_status;
+    private Boolean active_status;
 
 
-    public Person(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber) {
-        this.active_status = active_status;
-        this.address = address;
-        this.age = age;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.firstName = firstName;
-        this.gender = gender;
-        this.id = id;
-        this.lastName = lastName;
-        this.nationalId = nationalId;
-        this.phoneNumber = phoneNumber;
+    public Person(Boolean active_status, String address, Integer age,
+                  Date dateOfBirth, String email, String firstName,
+                  String gender, Long id, String lastName,
+                  String nationalId, String phoneNumber) {
+        setId(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setDateOfBirth(dateOfBirth);
+        setEmail(email);
+        setAge(age);
+        setGender(gender);
+        setNationalId(nationalId);
+        setPhoneNumber(phoneNumber);
+        this.active_status = true;
+        setAddress(address);
     }
 
 
+
     //overload
-    public Person(long id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Person(Long id, String firstName, String lastName) {
+        setId(id);
+        setFirstName(firstName);
+        setLastName(lastName);
     }
 
 
     // setter getter
 
-    public boolean isActive_status() {
+    public Boolean isActive_status() {
         return active_status;
     }
 
-    public void setActive_status(boolean active_status) {
+    public void setActive_status(Boolean active_status) {
         this.active_status = active_status;
     }
 
@@ -61,6 +65,10 @@ public class Person implements Displayable {
     }
 
     public void setAddress(String address) {
+        if(HelperUtils.isEmptyString(address)){
+            System.out.println("address  is required");
+            return;
+        }
         this.address = address;
     }
 
@@ -69,6 +77,11 @@ public class Person implements Displayable {
     }
 
     public void setAge(Integer age) {
+       if(!HelperUtils.isValidAge(age)) {
+           System.out.println("Invalid Age");
+           return;
+       }
+
         this.age = age;
     }
 
@@ -77,7 +90,7 @@ public class Person implements Displayable {
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
-        if(!HelperUtils.isValidDate(dateOfBirth)) {
+        if(!HelperUtils.isValidBirth(dateOfBirth)) {
             System.out.println("Invalid birth date");
             return;
         }
@@ -115,17 +128,19 @@ public class Person implements Displayable {
     public void setGender(String gender) {
         if(HelperUtils.isEmptyString(gender)){
             System.out.println("First gender is required");
+            return;
         }
         this.gender = gender;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         if(!HelperUtils.isValidId(id)) {
             System.out.println("Invalid Id");
+            return;
         }
         this.id = id;
     }
@@ -135,14 +150,24 @@ public class Person implements Displayable {
     }
 
     public void setLastName(String lastName) {
+        if (HelperUtils.isEmptyString(lastName)) {
+            System.out.println("Last name is required");
+            return;
+        }
+
         this.lastName = lastName;
     }
+
 
     public String getNationalId() {
         return nationalId;
     }
 
     public void setNationalId(String nationalId) {
+        if(!HelperUtils.isValidNationalId(nationalId)){
+            System.out.println("Invalid national id");
+            return;
+        }
         this.nationalId = nationalId;
     }
 
@@ -151,6 +176,10 @@ public class Person implements Displayable {
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        if(!HelperUtils.isValidPhone(phoneNumber)){
+            System.out.println("Invalid Phone Number");
+            return;
+        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -207,9 +236,13 @@ public class Person implements Displayable {
     // comparing id if already in list or not
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Person person)) return false;
-        return id == person.id;
+        if (!(o instanceof Person person)) {
+            return false;
+        }
+
+        return Objects.equals(id, person.id);
     }
+
 
     @Override
     public int hashCode() {
