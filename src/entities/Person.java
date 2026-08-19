@@ -1,10 +1,11 @@
 package entities;
 
+import interfaces.Displayable;
 import utils.HelperUtils;
 
 import java.util.Date;
 
-public class Person {
+public class Person implements Displayable {
 
 
      // methods
@@ -147,4 +148,31 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
+
+    @Override
+    public void displayInfo() {
+        System.out.println("Person{" +
+                "active_status=" + active_status +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", gender='" + gender + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", nationalId='" + nationalId + '\'' +
+                ", age=" + age );
+    }
+
+
+    @Override
+    public String displaySummary() {
+        return id + " " + firstName + " " +  lastName;
+    }
+    
+     // get full name
+    public String getFullName(){
+        return firstName + " " + lastName;
+    }
 }
