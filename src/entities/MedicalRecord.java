@@ -54,10 +54,6 @@ public class MedicalRecord implements Displayable {
         return isConfidential;
     }
 
-    public void setConfidential(Boolean confidential) {
-        isConfidential = confidential;
-    }
-
     public String getPrescription() {
         return prescription;
     }
