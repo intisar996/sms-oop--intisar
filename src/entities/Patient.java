@@ -40,9 +40,19 @@ public class Patient extends  Person{
 
 
 
-
-
-
+  // overload and display Info
+    @Override
+    public void displayInfo() {
+        System.out.println("Patient{" +
+                "allergies=" + allergies +
+                ", bloodGroup='" + bloodGroup + '\'' +
+                ", emergencyContact='" + emergencyContact + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", pastMedicalRecordIds=" + pastMedicalRecordIds +
+                ", outstandingBalance=" + outstandingBalance +
+                ", isInsured=" + isInsured +
+                '}');
+    }
 
 
 
