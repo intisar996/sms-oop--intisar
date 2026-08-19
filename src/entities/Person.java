@@ -35,6 +35,17 @@ public class Person {
         this.phoneNumber = phoneNumber;
     }
 
+
+    //overload
+    public Person(long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+
+    // setter getter
+
     public boolean isActive_status() {
         return active_status;
     }
@@ -135,4 +146,5 @@ public class Person {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
 }
