@@ -1,9 +1,12 @@
 package entities;
 
+import interfaces.Displayable;
+
 import java.awt.*;
 import java.util.Date;
+import java.util.List;
 
-public class MedicalRecord {
+public class MedicalRecord implements Displayable {
 
 
     private Long recordId;
@@ -12,14 +15,15 @@ public class MedicalRecord {
     private Date visitDate;
     private String diagnosis;
     private String prescription;
-    private TextArea notes;
+    private List<String> notes;
     private Boolean isConfidential;
 
-    public MedicalRecord(TextArea notes, String diagnosis, Long doctorId, Boolean isConfidential, Long patientId, String prescription, Long recordId, Date visitDate) {
-        this.notes = notes;
+
+    public MedicalRecord(String diagnosis, Long doctorId, Boolean isConfidential, List<String> notes, Long patientId, String prescription, Long recordId, Date visitDate) {
         this.diagnosis = diagnosis;
         this.doctorId = doctorId;
         this.isConfidential = isConfidential;
+        this.notes = notes;
         this.patientId = patientId;
         this.prescription = prescription;
         this.recordId = recordId;
@@ -42,12 +46,8 @@ public class MedicalRecord {
         this.doctorId = doctorId;
     }
 
-    public TextArea getNotes() {
+    public List<String> getNotes() {
         return notes;
-    }
-
-    public void setNotes(TextArea notes) {
-        this.notes = notes;
     }
 
     public Boolean getConfidential() {
@@ -89,4 +89,49 @@ public class MedicalRecord {
     public void setVisitDate(Date visitDate) {
         this.visitDate = visitDate;
     }
+
+    @Override
+    public void displayInfo() {
+        System.out.println("MedicalRecord{" +
+                "diagnosis='" + diagnosis + '\'' +
+                ", recordId=" + recordId +
+                ", patientId=" + patientId +
+                ", doctorId=" + doctorId +
+                ", visitDate=" + visitDate +
+                ", prescription='" + prescription + '\'' +
+                ", notes=" + notes +
+                ", isConfidential=" + isConfidential +
+                '}');
+    }
+
+
+    @Override
+    public String displaySummary() {
+        return "";
+    }
+
+    // appendNote
+    public void appendNote(String note){
+        notes.add(note);
+    }
+
+    //markConfidential()
+
+       public void markConfidential() {
+           isConfidential = true;
+       }
+
+       public boolean isConfidential(){
+        return isConfidential;
+       }
+
+
+
+
+
+
+
+
+
+
 }
