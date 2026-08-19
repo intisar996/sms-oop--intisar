@@ -18,8 +18,8 @@ public class Doctor extends  Person {
     public Doctor(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots) {
         super(active_status, address, age, dateOfBirth, email, firstName, gender, id, lastName, nationalId, phoneNumber);
         this.assignedPatientIds = assignedPatientIds;
-        this.consultationFee = consultationFee;
-        this.experienceYears = experienceYears;
+        setConsultationFee(consultationFee);
+        setExperienceYears(experienceYears);
         this.isOnCall = isOnCall;
         this.specialization = specialization;
         this.timesSlots = timesSlots;
@@ -28,10 +28,10 @@ public class Doctor extends  Person {
     public Doctor(long id, String firstName, String lastName, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots) {
         super(id, firstName, lastName);
         this.assignedPatientIds = assignedPatientIds;
-        this.consultationFee = consultationFee;
-        this.experienceYears = experienceYears;
+        setConsultationFee(consultationFee);
+        setExperienceYears(experienceYears);
         this.isOnCall = isOnCall;
-        this.specialization = specialization;
+        setSpecialization(specialization);
         this.timesSlots = timesSlots;
     }
 
@@ -59,7 +59,12 @@ public class Doctor extends  Person {
     }
 
     public void setExperienceYears(Integer experienceYears) {
+        if(!HelperUtils.isValidNumber(experienceYears)){
+            System.out.println("Experience years cannot be negative");
+            return;
+        }
         this.experienceYears = experienceYears;
+
     }
 
     public boolean isOnCall() {
@@ -75,6 +80,10 @@ public class Doctor extends  Person {
     }
 
     public void setSpecialization(String specialization) {
+        if(HelperUtils.isEmptyString(specialization)){
+            System.out.println("specialization  is required");
+            return;
+        }
         this.specialization = specialization;
     }
 
@@ -110,16 +119,16 @@ public class Doctor extends  Person {
     }
     // assign patient
 
-    public void assignPatient(Long id){
-        if(id > 0 ){
-            assignedPatientIds.add(id);
+    public void assignPatient(Long id) {
+        if (!HelperUtils.isValidId(id)) {
+            System.out.println("Invalid patient ID");
+            return;
         }
 
+        assignedPatientIds.add(id);
     }
 
 
-
-      // TODO : check this later
      public int getPatientLoad(){
         return assignedPatientIds.size();
      }
@@ -127,14 +136,16 @@ public class Doctor extends  Person {
 
    //fee methods
 
-      public Double raiseFee(double amount){
-        if(amount < 0 ) {
-            System.out.println("amount not must be negative");
-             return consultationFee;
-        }else {
-            return consultationFee += amount;
+    public Double raiseFee(double amount) {
+        if (!HelperUtils.isValidAmount(amount)) {
+            System.out.println("Amount must not be negative");
+            return consultationFee;
         }
-      }
+
+        consultationFee += amount;
+        return consultationFee;
+    }
+
 
 
 

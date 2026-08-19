@@ -2,6 +2,7 @@ package entities;
 
 import utils.HelperUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Patient extends  Person{
 
     public Patient(boolean active_status, String address, Integer age,
                    Date dateOfBirth, String email, String firstName,
-                   String gender, long id, String lastName,
+                   String gender, Long id, String lastName,
                    String nationalId, String phoneNumber,
                    List<String> allergies, String bloodGroup,
                    String emergencyContact, Boolean isInsured,
@@ -31,17 +32,39 @@ public class Patient extends  Person{
         super(active_status, address, age, dateOfBirth, email, firstName,
                 gender, id, lastName, nationalId, phoneNumber);
 
-        setAllergies(allergies);
+        this.allergies = new ArrayList<>();
+        this.pastMedicalRecordIds = new ArrayList<>();
         setBloodGroup(bloodGroup);
         setEmergencyContact(emergencyContact);
         setInsured(isInsured);
         setOutstandingBalance(outstandingBalance);
-        this.pastMedicalRecordIds = pastMedicalRecordIds;
         setRegistrationDate(registrationDate);
 
     }
 
+    public Patient(Long id, String firstName, String lastName, String bloodGroup) {
+        super(id, firstName, lastName);
 
+        this.allergies = new ArrayList<>();
+        this.pastMedicalRecordIds = new ArrayList<>();
+        setOutstandingBalance(outstandingBalance);
+        setInsured(isInsured);
+        setRegistrationDate(registrationDate);
+
+        setBloodGroup(bloodGroup);
+    }
+
+
+
+    public Patient(Long id, String firstName, String lastName) {
+        super(id, firstName, lastName);
+
+        setAllergies(allergies);
+        this.pastMedicalRecordIds = new ArrayList<>();
+        setOutstandingBalance(outstandingBalance);
+        setInsured(isInsured);
+        setRegistrationDate(registrationDate);
+    }
 
 
     // overload and display Info
@@ -76,6 +99,10 @@ public class Patient extends  Person{
     }
 
     public void setBloodGroup(String bloodGroup) {
+        if(HelperUtils.isEmptyString(bloodGroup)){
+            System.out.println("bloodGroup  is required");
+            return;
+        }
         this.bloodGroup = bloodGroup;
     }
 
@@ -84,6 +111,10 @@ public class Patient extends  Person{
     }
 
     public void setEmergencyContact(String emergencyContact) {
+        if(!HelperUtils.isValidPhone(emergencyContact)){
+            System.out.println("emergencyContact  is required");
+            return;
+        }
         this.emergencyContact = emergencyContact;
     }
 
@@ -100,8 +131,9 @@ public class Patient extends  Person{
     }
 
     public void setOutstandingBalance(Double outstandingBalance) {
-        if(HelperUtils.isValidAmount(outstandingBalance)){
+        if(!HelperUtils.isValidAmount(outstandingBalance)){
             System.out.println("consultation fee must not be negative");
+            return;
         }
         this.outstandingBalance = outstandingBalance;
     }

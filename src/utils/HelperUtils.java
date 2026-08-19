@@ -5,6 +5,7 @@ import entities.Patient;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class HelperUtils {
 
@@ -46,6 +47,11 @@ public class HelperUtils {
         return date != null && !date.before(new Date());
     }
 
+    public static boolean isValidVisitDate(Date date) {
+        return date != null && !date.after(new Date());
+    }
+
+
 
 
 
@@ -67,6 +73,17 @@ public class HelperUtils {
         return patientList == null || patientList.isEmpty();
     }
 
+
+
+
+
+
+
+
+    public static Integer takeIntegerInput(){
+        Scanner input = new Scanner(System.in);
+        return input.nextInt();
+    }
 
 
 

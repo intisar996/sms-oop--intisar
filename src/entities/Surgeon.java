@@ -1,5 +1,7 @@
 package entities;
 
+import utils.HelperUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,16 +14,18 @@ public class Surgeon extends  Doctor{
 
     public Surgeon(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots, Integer surgeriesPerformed, Boolean operationTheatreAccess, List<Date> upcomingSurgeryDates) {
         super(active_status, address, age, dateOfBirth, email, firstName, gender, id, lastName, nationalId, phoneNumber, assignedPatientIds, consultationFee, experienceYears, isOnCall, specialization, timesSlots);
-        this.surgeriesPerformed = surgeriesPerformed;
-        this.operationTheatreAccess = operationTheatreAccess;
-        this.upcomingSurgeryDates = upcomingSurgeryDates;
+        setSurgeriesPerformed(surgeriesPerformed);
+        setOperationTheatreAccess(operationTheatreAccess);
+        setUpcomingSurgeryDates(upcomingSurgeryDates);
+
     }
 
     public Surgeon(long id, String firstName, String lastName, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots, Integer surgeriesPerformed, Boolean operationTheatreAccess, List<Date> upcomingSurgeryDates) {
         super(id, firstName, lastName, assignedPatientIds, consultationFee, experienceYears, isOnCall, specialization, timesSlots);
-        this.surgeriesPerformed = surgeriesPerformed;
-        this.operationTheatreAccess = operationTheatreAccess;
-        this.upcomingSurgeryDates = upcomingSurgeryDates;
+        setSurgeriesPerformed(surgeriesPerformed);
+        setOperationTheatreAccess(operationTheatreAccess);
+        setUpcomingSurgeryDates(upcomingSurgeryDates);
+
     }
 
 
@@ -30,6 +34,10 @@ public class Surgeon extends  Doctor{
     }
 
     public void setSurgeriesPerformed(Integer surgeriesPerformed) {
+    if(!HelperUtils.isValidNumber(surgeriesPerformed)){
+        System.out.println("surgeriesPerformed must not be negative");
+        return;
+    }
         this.surgeriesPerformed = surgeriesPerformed;
     }
 
@@ -70,6 +78,12 @@ public class Surgeon extends  Doctor{
     }
 
     public void scheduleSurgery(Date date){
+
+        if (!HelperUtils.isValidDate(date)) {
+            System.out.println("Invalid surgery date");
+            return;
+        }
+
         if(upcomingSurgeryDates.contains(date)){
             System.out.println("no place in this date");
             return;
