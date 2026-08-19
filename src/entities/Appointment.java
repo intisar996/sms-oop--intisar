@@ -18,7 +18,9 @@ public class Appointment implements Displayable {
 
     public enum  Status {
         complete,
-        cancel
+        cancel,
+        Reschedule
+
     }
 
     public Appointment(Date appointmentDate, Long appointmentId, Time appointmentTime, Boolean isFollowUp, Long doctorId, Long patientId, String reason, Status status) {
@@ -122,6 +124,20 @@ public class Appointment implements Displayable {
     public void complete(){
         status = Status.complete;
     }
+
+    public void reschedule(Date date, Time time, Status status){
+        appointmentDate =date;
+        appointmentTime = time;
+        status = Status.Reschedule;
+    }
+
+
+    public boolean isPast(Date date) {
+        return appointmentDate.compareTo(date) < 0;
+    }
+
+
+    
 
 
 
