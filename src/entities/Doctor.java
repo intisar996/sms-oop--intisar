@@ -34,18 +34,19 @@ public class Doctor extends  Person {
         this.timesSlots = timesSlots;
     }
 
+    @Override
+    public void displayInfo() {
 
-    
+        System.out.println( "Doctor{" +
+                "assignedPatientIds=" + assignedPatientIds +
+                ", specialization='" + specialization + '\'' +
+                ", experienceYears=" + experienceYears +
+                ", consultationFee=" + consultationFee +
+                ", timesSlots=" + timesSlots +
+                ", isOnCall=" + isOnCall +
+                '}');
+    }
 
 
-
-
-
-
-
-
-
-
-
-
+   
 }
