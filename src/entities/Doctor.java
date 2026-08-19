@@ -38,9 +38,7 @@ public class Doctor extends  Person {
         return assignedPatientIds;
     }
 
-    public void setAssignedPatientIds(List<Long> assignedPatientIds) {
-        this.assignedPatientIds = assignedPatientIds;
-    }
+
 
     public Double getConsultationFee() {
         return consultationFee;
@@ -78,9 +76,6 @@ public class Doctor extends  Person {
         return timesSlots;
     }
 
-    public void setTimesSlots(List<String> timesSlots) {
-        this.timesSlots = timesSlots;
-    }
 
     @Override
     public void displayInfo() {
@@ -97,22 +92,46 @@ public class Doctor extends  Person {
 
 
     public void addSlot(String slot) {
-            timesSlots.add(slot);
+        timesSlots.add(slot);
     }
-
 
     public void removeSlot(String slot) {
-        for (int i = 0; i < timesSlots.size(); i++) {
-            if (timesSlots.contains(slot)) {
-                timesSlots.remove(i);
-            }
-        }
+                timesSlots.remove(slot);
     }
-
 
     public boolean hasSlot(String slot) {
         return timesSlots.contains(slot);
     }
+    // assign patient
+
+    public void assignPatient(Long id){
+        if(id > 0 ){
+            assignedPatientIds.add(id);
+        }
+
+    }
+
+     public int getPatientLoad(){
+        return assignedPatientIds.size();
+     }
+
+
+   //fee methods
+
+      public Double raiseFee(double amount){
+        if(amount < 0 ) {
+            System.out.println("amount not must be negative");
+             return consultationFee;
+        }else {
+            return consultationFee += amount;
+        }
+      }
+
+
+
+
+
+
 
 
 
