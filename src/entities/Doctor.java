@@ -1,5 +1,7 @@
 package entities;
 
+import utils.HelperUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +47,9 @@ public class Doctor extends  Person {
     }
 
     public void setConsultationFee(Double consultationFee) {
+        if(HelperUtils.isValidAmount(consultationFee)){
+            System.out.println("consultation fee must not be negative");
+        }
         this.consultationFee = consultationFee;
     }
 

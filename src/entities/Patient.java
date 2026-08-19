@@ -1,5 +1,7 @@
 package entities;
 
+import utils.HelperUtils;
+
 import java.util.Date;
 import java.util.List;
 
@@ -91,6 +93,12 @@ public class Patient extends  Person{
         return outstandingBalance;
     }
 
+    public void setOutstandingBalance(Double outstandingBalance) {
+        if(HelperUtils.isValidAmount(outstandingBalance)){
+            System.out.println("consultation fee must not be negative");
+        }
+        this.outstandingBalance = outstandingBalance;
+    }
 
     public List<Integer> getPastMedicalRecordIds() {
         return pastMedicalRecordIds;
