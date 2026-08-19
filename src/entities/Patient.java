@@ -55,7 +55,56 @@ public class Patient extends  Person{
     }
 
 
-     // add allergy to list
+    public List<String> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<String> allergies) {
+        this.allergies = allergies;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    public String getEmergencyContact() {
+        return emergencyContact;
+    }
+
+    public void setEmergencyContact(String emergencyContact) {
+        this.emergencyContact = emergencyContact;
+    }
+
+    public Boolean getInsured() {
+        return isInsured;
+    }
+
+    public void setInsured(Boolean insured) {
+        isInsured = insured;
+    }
+
+    public Double getOutstandingBalance() {
+        return outstandingBalance;
+    }
+
+
+    public List<Integer> getPastMedicalRecordIds() {
+        return pastMedicalRecordIds;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    // add allergy to list
      public void addAllergy(String allergy ){
              allergies.add(allergy);
      }
@@ -81,16 +130,17 @@ public class Patient extends  Person{
 
     // add to balance
 
-    public void addToBalance(double amount){
-        outstandingBalance += amount;
+    public double addToBalance(double amount){
+        if(amount > 0 ){
+            return outstandingBalance += amount;
+        }
+          return   outstandingBalance;
     }
 
     // clear balance
     public void  clearBalance(){
         outstandingBalance = 0.0;
     }
-
-
 
 
 }
