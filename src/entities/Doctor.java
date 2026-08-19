@@ -111,6 +111,9 @@ public class Doctor extends  Person {
 
     }
 
+
+
+      // TODO : check this later
      public int getPatientLoad(){
         return assignedPatientIds.size();
      }

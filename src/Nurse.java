@@ -46,8 +46,6 @@ public class Nurse extends Person {
                 '}');
     }
 
-
-
       // assign patient
 
     public void assignPatient(long id){
@@ -56,12 +54,24 @@ public class Nurse extends Person {
         }
     }
 
-
-
     //unassignPatient
     public void unassignPatient(long id){
         assignedPatientIds.remove(id);
     }
+
+
+    // TODO : check this later
+    public int getPatientLoad(){
+        return assignedPatientIds.size();
+    }
+
+
+     //isNightShift
+    public boolean isNightShift(){
+        return shift == Shift.Night;
+    }
+
+
 
 
 
