@@ -55,5 +55,19 @@ public class Patient extends  Person{
     }
 
 
+     // add allergy to list
+     public void addAllergy(String allergy ){
+             allergies.add(allergy);
+     }
+
+     // check if patient hasAllergy
+    public boolean hasAllergy(){
+        return !allergies.isEmpty();
+    }
+
+
+
+
+
 
 }
