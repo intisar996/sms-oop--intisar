@@ -1,31 +1,36 @@
 package entities;
 
+import interfaces.Displayable;
+
 import java.sql.Time;
 import java.util.Date;
 
-public class Appointment {
+public class Appointment implements Displayable {
 
     private Long appointmentId;
     private Long patientId;
     private Long doctorId;
     private Date appointmentDate;
     private Time appointmentTime;
-    private String status;
+    private Status status;
     private String reason;
     private Boolean isFollowUp;
 
+    public enum  Status {
+        complete,
+        cancel
+    }
 
-    public Appointment(Date appointmentDate, Long appointmentId, Long doctorId, Time appointmentTime, Boolean isFollowUp, Long patientId, String reason, String status) {
+    public Appointment(Date appointmentDate, Long appointmentId, Time appointmentTime, Boolean isFollowUp, Long doctorId, Long patientId, String reason, Status status) {
         this.appointmentDate = appointmentDate;
         this.appointmentId = appointmentId;
-        this.doctorId = doctorId;
         this.appointmentTime = appointmentTime;
         this.isFollowUp = isFollowUp;
+        this.doctorId = doctorId;
         this.patientId = patientId;
         this.reason = reason;
         this.status = status;
     }
-
 
     public Date getAppointmentDate() {
         return appointmentDate;
@@ -83,11 +88,44 @@ public class Appointment {
         this.reason = reason;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    @Override
+    public void displayInfo() {
+        System.out.println("Appointment{" +
+                "appointmentDate=" + appointmentDate +
+                ", appointmentId=" + appointmentId +
+                ", patientId=" + patientId +
+                ", doctorId=" + doctorId +
+                ", appointmentTime=" + appointmentTime +
+                ", status='" + status + '\'' +
+                ", reason='" + reason + '\'' +
+                ", isFollowUp=" + isFollowUp +
+                '}');
     }
+    @Override
+    public String displaySummary() {
+        return "";
+    }
+
+
+
+    // change status
+
+    public void cancel(){
+        status = Status.cancel;
+    }
+
+
+    public void complete(){
+        status = Status.complete;
+    }
+
+
+
+
+
+
 }
