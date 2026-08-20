@@ -1,5 +1,6 @@
 package services;
 
+import entities.Doctor;
 import entities.Patient;
 import interfaces.Manageable;
 import interfaces.Searchable;
@@ -68,6 +69,34 @@ public class PatientService implements Manageable, Searchable {
         return result;
     }
 
+    @Override
+    public boolean removeById(Long id) {
+        int found = -1;
+        for (int i = 0; i < count; i++) {
+            if (patients[i].getId().equals(id)) {
+                found = i;
+                break;
+            }
+        }
+        if (found == -1) {
+            return false;
+        }
+        for (int i = found; i < count - 1; i++) {
+            patients[i] = patients[i + 1];
+        }
+        patients[count - 1] = null;
+        count = count - 1;
+        return true;
+
+    }
+   //--------------------------------------------------------
+   private boolean matchesKeyword(Patient p, String keyword) {
+       if (HelperUtils.isEmptyString(keyword)) {
+           return false;
+       }
+       String k = keyword.toLowerCase();
+       return p.getFullName().toLowerCase().contains(k);
+   }
 
     // Search Services
     @Override
@@ -78,6 +107,26 @@ public class PatientService implements Manageable, Searchable {
             }
         }
         return null;
+    }
+
+    @Override
+    public Object[] search(String keyword) {
+
+        int matches = 0;
+        for (int i = 0; i < count; i++) {
+            if (matchesKeyword(patients[i], keyword)) {
+                matches = matches + 1;
+            }
+        }
+        Object[] result = new Object[matches];
+        int pos = 0;
+        for (int i = 0; i < count; i++) {
+            if (matchesKeyword(patients[i], keyword)) {
+                result[pos] = patients[i];
+                pos = pos + 1;
+            }
+        }
+        return result;
     }
     // ---------- service-specific ----------
 

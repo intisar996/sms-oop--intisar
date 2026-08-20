@@ -30,11 +30,9 @@ public class Nurse extends Person {
         setYearsOfService(yearsOfService);
     }
 
-    public Nurse(long id, String firstName, String lastName, List<Long> assignedPatientIds, Long  departmentId, Shift shift, Integer yearsOfService) {
-        super(id, firstName, lastName);
-        this.assignedPatientIds = assignedPatientIds;
+    public Nurse(long id, String firstName, String lastName,Integer age, Long  departmentId, Integer yearsOfService) {
+        super(id, firstName, lastName,age);
         this.departmentId = departmentId;
-        this.shift = shift;
         setYearsOfService(yearsOfService);
     }
 

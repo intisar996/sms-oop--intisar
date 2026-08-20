@@ -4,6 +4,7 @@ import entities.Doctor;
 import entities.Patient;
 import interfaces.Manageable;
 import interfaces.Searchable;
+import utils.HelperUtils;
 import utils.InputHandler;
 
 import java.util.ArrayList;
@@ -44,6 +45,26 @@ public class DoctorService implements Manageable, Searchable {
         }
         return result;
     }
+    @Override
+    public boolean removeById(Long id) {
+        int found = -1;
+        for (int i = 0; i < count; i++) {
+            if (doctors[i].getId().equals(id)) {
+                found = i;
+                break;
+            }
+        }
+        if (found == -1) {
+            return false;
+        }
+        for (int i = found; i < count - 1; i++) {
+            doctors[i] = doctors[i + 1];
+        }
+        doctors[count - 1] = null;
+        count = count - 1;
+        return true;
+
+    }
 
     // Search Services
     @Override
@@ -55,6 +76,38 @@ public class DoctorService implements Manageable, Searchable {
         }
         return null;
     }
+    //-------------------------------
+
+    private boolean matchesKeyword(Doctor p, String keyword) {
+        if (HelperUtils.isEmptyString(keyword)) {
+            return false;
+        }
+        String k = keyword.toLowerCase();
+        return p.getFullName().toLowerCase().contains(k);
+    }
+
+
+    @Override
+    public Object[] search(String keyword) {
+
+        int matches = 0;
+        for (int i = 0; i < count; i++) {
+            if (matchesKeyword(doctors[i], keyword)) {
+                matches = matches + 1;
+            }
+        }
+        Object[] result = new Object[matches];
+        int pos = 0;
+        for (int i = 0; i < count; i++) {
+            if (matchesKeyword(doctors[i], keyword)) {
+                result[pos] = doctors[i];
+                pos = pos + 1;
+            }
+        }
+        return result;
+    }
+
+
 
     // ---------- service-specific ---------
     public void updateFee(Long id,double fee) {
@@ -66,6 +119,7 @@ public class DoctorService implements Manageable, Searchable {
         Doctor d = (Doctor) found;
         d.updateFee(fee);
     }
+
 
 
     public int getCount(){
