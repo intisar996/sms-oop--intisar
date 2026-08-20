@@ -36,9 +36,9 @@ public class Patient extends  Person{
         this.pastMedicalRecordIds = new ArrayList<>();
         setBloodGroup(bloodGroup);
         setEmergencyContact(emergencyContact);
-        setInsured(isInsured);
-        setOutstandingBalance(outstandingBalance);
-        setRegistrationDate(registrationDate);
+        setInsured(false);
+        setOutstandingBalance(0.0);
+        setRegistrationDate(new Date());
 
     }
 
@@ -47,24 +47,19 @@ public class Patient extends  Person{
 
         this.allergies = new ArrayList<>();
         this.pastMedicalRecordIds = new ArrayList<>();
-        setOutstandingBalance(outstandingBalance);
-        setInsured(isInsured);
-        setRegistrationDate(registrationDate);
+        setOutstandingBalance(0.0);
+        setInsured(false);
+        setRegistrationDate(new Date());
 
         setBloodGroup(bloodGroup);
     }
 
 
-
     public Patient(Long id, String firstName, String lastName) {
         super(id, firstName, lastName);
-
-        setAllergies(allergies);
-        this.pastMedicalRecordIds = new ArrayList<>();
-        setOutstandingBalance(outstandingBalance);
-        setInsured(isInsured);
-        setRegistrationDate(registrationDate);
     }
+
+
 
 
     // overload and display Info
@@ -201,5 +196,15 @@ public class Patient extends  Person{
 
 
 
+    // update contact
+    public void updateContact(String phone){
+        setPhoneNumber(phone);
+    }
+
+
+    public void updateContact(String phone,String email){
+        setPhoneNumber(phone);
+        setEmail(email);
+    }
 
 }

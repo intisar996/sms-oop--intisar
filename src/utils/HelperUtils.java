@@ -25,10 +25,9 @@ public class HelperUtils {
         return id != null && id.matches("\\d{7}");
     }
 
-    public static  boolean  isValidPhone(String id){
+    public static boolean isValidPhone(String id) {
         return id != null && id.matches("\\d{8}");
     }
-
 
 
     public static  boolean isValidEmail(String email){
@@ -77,13 +76,6 @@ public class HelperUtils {
 
 
 
-
-
-
-    public static Integer takeIntegerInput(){
-        Scanner input = new Scanner(System.in);
-        return input.nextInt();
-    }
 
 
 

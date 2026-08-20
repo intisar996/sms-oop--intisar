@@ -2,6 +2,7 @@ package entities;
 
 import utils.HelperUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class Doctor extends  Person {
     private List<String> timesSlots;
     private List<Long> assignedPatientIds;
     private boolean isOnCall;
+    private String reason;
 
     public Doctor(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots) {
         super(active_status, address, age, dateOfBirth, email, firstName, gender, id, lastName, nationalId, phoneNumber);
@@ -25,16 +27,29 @@ public class Doctor extends  Person {
         this.timesSlots = timesSlots;
     }
 
-    public Doctor(long id, String firstName, String lastName, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots) {
+    public Doctor(long id, String firstName, String lastName,
+                  Double consultationFee, Integer experienceYears,
+                  Boolean isOnCall, String specialization) {
+
         super(id, firstName, lastName);
-        this.assignedPatientIds = assignedPatientIds;
+
+        this.timesSlots = new ArrayList<>();
+        this.assignedPatientIds = new ArrayList<>();
+
         setConsultationFee(consultationFee);
         setExperienceYears(experienceYears);
-        this.isOnCall = isOnCall;
+        setOnCall(isOnCall);
         setSpecialization(specialization);
-        this.timesSlots = timesSlots;
     }
 
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 
     public List<Long> getAssignedPatientIds() {
         return assignedPatientIds;
@@ -96,12 +111,13 @@ public class Doctor extends  Person {
     public void displayInfo() {
 
         System.out.println("Doctor{" +
-                "assignedPatientIds=" + assignedPatientIds +
-                ", specialization='" + specialization + '\'' +
+                "specialization='" + specialization + '\'' +
                 ", experienceYears=" + experienceYears +
                 ", consultationFee=" + consultationFee +
                 ", timesSlots=" + timesSlots +
+                ", assignedPatientIds=" + assignedPatientIds +
                 ", isOnCall=" + isOnCall +
+                ", reason='" + reason + '\'' +
                 '}');
     }
 
@@ -145,6 +161,20 @@ public class Doctor extends  Person {
         consultationFee += amount;
         return consultationFee;
     }
+
+
+
+    // overLoading
+    public void updateFee(Double fee){
+        setConsultationFee(fee);
+    }
+
+    public void updateFee(Double fee, String reason){
+        setConsultationFee(fee);
+        setReason(reason);
+    }
+
+
 
 
 

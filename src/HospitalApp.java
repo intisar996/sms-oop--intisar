@@ -1,6 +1,7 @@
 import entities.Patient;
 import services.PatientService;
 import utils.HelperUtils;
+import utils.InputHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,12 @@ public class HospitalApp {
 
         while (exitFlag.equals(false)){
             Menu.displayMenu();
-            Integer option = HelperUtils.takeIntegerInput();
+            Integer option = InputHandler.takeIntegerInput();
 
             if(option.equals(1)){
                 Menu.displayPatientMenu();
                 IO.println("Enter Patient Option: ");
-                Integer patientOption =  HelperUtils.takeIntegerInput();
+                Integer patientOption =  InputHandler.takeIntegerInput();
                  patientService.menuReslover(patientOption);
             }
 

@@ -16,7 +16,7 @@ public class Menu {
     public static void displayPatientMenu(){
         String PatientMenuString = """
                 1- Add new Patient
-                2- Display All
+                2- Update Contact
                 3- Add New School
                 4- Update School By Id
                 5- Delete School By Id
