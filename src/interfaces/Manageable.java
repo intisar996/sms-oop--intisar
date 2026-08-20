@@ -6,6 +6,8 @@ public interface Manageable<T> {
 
     Object[] getAll();
 
+    boolean removeById(Long id);
+
 
 
 }
