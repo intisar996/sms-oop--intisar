@@ -20,7 +20,7 @@ public class Surgeon extends  Doctor{
     }
 
     public Surgeon(long id, String firstName, String lastName, Double consultationFee, Integer experienceYears, Boolean isOnCall, String specialization, Boolean operationTheatreAccess) {
-        super(id, firstName, lastName, consultationFee, experienceYears, isOnCall, specialization);
+        super(id, firstName, lastName,experienceYears, consultationFee, isOnCall, specialization);
         setSurgeriesPerformed(surgeriesPerformed);
         setOperationTheatreAccess(operationTheatreAccess);
         setUpcomingSurgeryDates(upcomingSurgeryDates);

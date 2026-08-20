@@ -35,11 +35,9 @@ public class HospitalApp {
 
 
     // patient
-
-
     private void patientMenu() {
         System.out.println("*****Patient*****");
-        System.out.println("1. Add   2. View all   3. Search   4. Update contact   5. Remove ");
+        System.out.println("1. Add   2. Remove ById  3. Search ById 4-Search  5. Update contact  6-View All  7-listInPatients 8-totalOutstanding");
         int choice = input.readInt("Choose", 1, 5);
 
         if (choice == 1) {
@@ -48,7 +46,66 @@ public class HospitalApp {
             String bloodGroup = input.readText("Blood Group");
             Integer age = input.readInt("Enter age");
             Patient p = patientService.addPatient(first, last, bloodGroup,age);
-            System.out.println("Added student with id " + p.getId());
+            System.out.println("Added patient with id " + p.getId());
+        }else if(choice == 2){
+            Long id = input.readLong("Enter ID");
+            patientService.removeById(id);
+            System.out.println("Successfully remove Patient");
+        }
+        else if(choice == 3){
+            Long id = input.readLong("Enter ID");
+            Patient p = patientService.searchById(id);
+            System.out.println("patient ID: " + p.getId() + " FullName :  " + p.getFullName() + "  Age: " + p.getAge());
+        }
+        else if(choice == 4){
+            String keyword = input.readText("Search keyword");
+            printEntities(patientService.search(keyword));
+        } else if (choice == 5) {
+            Long id = input.readLong("Patient id");
+            String phone = input.readText("New phone");
+            String email = input.readText("New email");
+            patientService.updateContact(id, phone, email);
+        }else if(choice == 6){
+
+            Object[] p = patientService.getAll();
+            for (Object patient : p) {
+                System.out.println(patient);
+            }
+        }else if(choice == 7){
+
+            Object[] p = patientService.listInPatients();
+            for (Object patient : p) {
+                InPatient inPatient = (InPatient) patient;
+                inPatient.displayInfo();
+            }
+        }else if(choice == 8){
+            double total = patientService.totalOutstanding();
+
+            System.out.println("Total Outstanding Balance: " + total);
+        }
+
+
+
+    }
+
+
+
+    private void  doctorMenu() {
+        System.out.println("*****Doctor*****");
+        System.out.println("1. Add   2. View all   3. Search   4. Update contact   5. Remove ");
+        int choice = input.readInt("Choose", 1, 5);
+        Long doid = HelperUtils.generateId();
+        if (choice == 1) {
+            String first = input.readText("First name");
+            String last = input.readText("Last name");
+            Integer age = input.readInt("Enter age");
+            Double fee = input.readDouble("Enter consultation Fee");
+            Integer exp = input.readInt("Enter experience Years");
+            String specialization = input.readText("Enter specialization");
+
+            Doctor doctor = new Doctor(doid,first,last,age,fee, true,specialization);
+            doctorService.add(doctor);
+            System.out.println("Added student with id " + doctor.getId());
         }
 
     }
@@ -192,13 +249,15 @@ public class HospitalApp {
             System.out.println("===== School Management System =====");
             System.out.println("1. Patient");
             System.out.println("2. Doctor");
-            System.out.println("3. Appointment");
+            System.out.println("3. Nurse");
             System.out.println("4. Reports");
             System.out.println("6. Exit");
             int choice = input.readInt("Choose an option", 1, 6);
 
             if (choice == 1) {
                 patientMenu();
+            }else if(choice == 2) {
+                doctorMenu();
             }else if(choice == 4){
                 reportMenu();
             }

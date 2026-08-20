@@ -24,6 +24,7 @@ public class DoctorService implements Manageable, Searchable {
 
 
     // ---------- Manageable ----------
+    @Override
     public void add(Object item) {
         if (item == null || !(item instanceof Doctor)) {
             System.out.println("Rejected: not a Doctor.");

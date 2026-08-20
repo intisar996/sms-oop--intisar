@@ -88,6 +88,11 @@ public class AppointmentService implements Manageable {
         return result;
     }
 
+    @Override
+    public boolean removeById(Long id) {
+        return false;
+    }
+
     // ---------- service-specific ----------
 
 

@@ -46,6 +46,18 @@ public class InputHandler {
     }
 
 
+    public Long readLong(String prompt) {
+        while (true) {
+            System.out.print(prompt + ": ");
+            String line = scanner.nextLine();
+            if (isWholeNumber(line)) {
+                return Long.parseLong(line.trim());
+            }
+            System.out.println("Please type a whole number.");
+        }
+    }
+
+
 
     // read a whole number within min..max, repeating until it is valid
     public int readInt(String prompt, int min, int max) {
@@ -70,6 +82,28 @@ public class InputHandler {
                 return line.trim();
             }
             System.out.println("Please type something (it cannot be empty).");
+        }
+    }
+    private boolean isDecimalNumber(String line) {
+        if (HelperUtils.isEmptyString(line)) {
+            return false;
+        }
+        try {
+            Double.parseDouble(line.trim());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public double readDouble(String prompt) {
+        while (true) {
+            System.out.print(prompt + ": ");
+            String line = scanner.nextLine();
+            if (isDecimalNumber(line)) {
+                return Double.parseDouble(line.trim());
+            }
+            System.out.println("Please type a number (decimals allowed).");
         }
     }
 

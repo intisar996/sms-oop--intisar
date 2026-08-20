@@ -27,11 +27,11 @@ public class Doctor extends  Person {
         this.timesSlots = timesSlots;
     }
 
-    public Doctor(long id, String firstName, String lastName,
-                  Double consultationFee, Integer experienceYears,
+    public Doctor(long id, String firstName, String lastName,Integer age,
+                  Double consultationFee,
                   Boolean isOnCall, String specialization) {
 
-        super(id, firstName, lastName);
+        super(id, firstName, lastName,age);
 
         this.timesSlots = new ArrayList<>();
         this.assignedPatientIds = new ArrayList<>();
@@ -74,8 +74,8 @@ public class Doctor extends  Person {
     }
 
     public void setExperienceYears(Integer experienceYears) {
-        if(!HelperUtils.isValidNumber(experienceYears)){
-            System.out.println("Experience years cannot be negative");
+        if(HelperUtils.isValidNumber(experienceYears)){
+            System.out.println("Experience years not be negative");
             return;
         }
         this.experienceYears = experienceYears;

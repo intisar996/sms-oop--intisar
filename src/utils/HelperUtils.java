@@ -65,9 +65,18 @@ public class HelperUtils {
         return number != null && number >= 0;
     }
 
+    // ---------- range checks (2 overloads) ----------
 
-    public static boolean isValidAge(Integer age) {
-        return age != null && age >= 0 && age <= 120;
+    public static boolean inRange(int value, int min, int max) {
+        return value >= min && value <= max;
+    }
+
+    public static boolean inRange(double value, double min, double max) {
+        return value >= min && value <= max;
+    }
+
+    public static boolean isValidAge(int age) {
+        return inRange(age, 0, 120);
     }
 
     public static boolean  isPatientListEmpty(List<Patient> patientList) {
@@ -82,11 +91,7 @@ public class HelperUtils {
         return  idCounter;
     }
 
-    // ---------- range checks (2 overloads) ----------
 
-    public static boolean inRange(int value, int min, int max) {
-        return value >= min && value <= max;
-    }
 
 
 

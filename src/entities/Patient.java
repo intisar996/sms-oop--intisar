@@ -43,7 +43,7 @@ public class Patient extends  Person{
     }
 
     public Patient(Long id, String firstName, String lastName, String bloodGroup,Integer age) {
-        super(id, firstName, lastName);
+        super(id, firstName, lastName,age);
 
         this.allergies = new ArrayList<>();
         this.pastMedicalRecordIds = new ArrayList<>();
@@ -56,7 +56,7 @@ public class Patient extends  Person{
 
 
     public Patient(Long id, String firstName, String lastName,Integer age) {
-        super(id, firstName, lastName);
+        super(id, firstName, lastName,age);
     }
 
 
@@ -206,5 +206,8 @@ public class Patient extends  Person{
         setPhoneNumber(phone);
         setEmail(email);
     }
+
+
+
 
 }

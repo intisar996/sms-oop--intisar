@@ -47,6 +47,7 @@ public class Person implements Displayable {
         setId(id);
         setFirstName(firstName);
         setLastName(lastName);
+        setAge(age);
     }
 
 
@@ -76,12 +77,12 @@ public class Person implements Displayable {
         return age;
     }
 
-    public void setAge(Integer age) {
-       if(!HelperUtils.isValidAge(age)) {
-           System.out.println("Invalid Age");
-           return;
-       }
 
+    public void setAge(int age) {
+        if (!HelperUtils.isValidAge(age)) {
+            System.out.println("Rejected: age must be between 0 and 120.");
+            return;
+        }
         this.age = age;
     }
 

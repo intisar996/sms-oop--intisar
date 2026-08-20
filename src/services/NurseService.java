@@ -45,9 +45,14 @@ public class NurseService implements Manageable, Searchable {
         count = count + 1;
     }
 
+
     @Override
     public Object[] getAll() {
-        return new Object[0];
+        Object[] result = new Object[count];
+        for(int i =0; i< count; i++){
+            result[i] = nurses[i];
+        }
+        return result;
     }
 
     @Override

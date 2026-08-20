@@ -1,6 +1,7 @@
 package services;
 
 import entities.Doctor;
+import entities.InPatient;
 import entities.Patient;
 import interfaces.Manageable;
 import interfaces.Searchable;
@@ -65,7 +66,9 @@ public class PatientService implements Manageable, Searchable {
         Object[] result = new Object[count];
         for(int i =0; i< count; i++){
             result[i] = patients[i];
+
         }
+
         return result;
     }
 
@@ -100,7 +103,7 @@ public class PatientService implements Manageable, Searchable {
 
     // Search Services
     @Override
-    public Object searchById(Long id) {
+    public Patient searchById(Long id) {
         for (int i = 0; i < count; i++) {
             if (patients[i].getId().equals(id)) {
                 return patients[i];
@@ -145,4 +148,56 @@ public class PatientService implements Manageable, Searchable {
       }
 
 
+
+
+    public Object[] listInPatients() {
+        int matches = 0;
+
+        for (int i = 0; i < count; i++) {
+            if (patients[i] instanceof InPatient) {
+                InPatient p = (InPatient) patients[i];
+
+                if (Boolean.TRUE.equals(p.getAdmissionState())) {
+                    matches++;
+                }
+            }
+        }
+
+        // Create result array
+        Object[] result = new Object[matches];
+        int pos = 0;
+
+        for (int i = 0; i < count; i++) {
+            if (patients[i] instanceof InPatient) {
+                InPatient p = (InPatient) patients[i];
+
+                if (Boolean.TRUE.equals(p.getAdmissionState())) {
+                    result[pos] = p;
+                    pos++;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    public double totalOutstanding() {
+        double total = 0.0;
+
+        for (int i = 0; i < count; i++) {
+            if (patients[i] != null) {
+                total += patients[i].getOutstandingBalance();
+            }
+        }
+
+        return total;
+    }
+
+
 }
+
+
+
+
+
+
