@@ -1,6 +1,7 @@
 package services;
 
 import entities.Appointment;
+import entities.Patient;
 import interfaces.Manageable;
 import utils.HelperUtils;
 
@@ -93,7 +94,56 @@ public class AppointmentService implements Manageable {
         return false;
     }
 
+
+
+
+    // serach
+    public Appointment searchById(Long id) {
+        for (int i = 0; i < count; i++) {
+            if (appointments[i].getAppointmentId().equals(id)) {
+                return appointments[i];
+            }
+        }
+        return null;
+    }
+
+
+
+
     // ---------- service-specific ----------
+
+ public void cancel(Long id){
+     Object found = searchById(id);
+     if(found == null) {
+         System.out.println("No Appointment with id " + id);
+         return;
+     }
+     Appointment p = (Appointment) found;
+     p.cancel();
+ }
+
+
+
+    public void complete(Long id){
+        Object found = searchById(id);
+        if(found == null) {
+            System.out.println("No Appointment with id " + id);
+            return;
+        }
+        Appointment p = (Appointment) found;
+        p.complete();
+    }
+
+
+    public void reschedule(Long id,Date date, Time time){
+        Object found = searchById(id);
+        if(found == null) {
+            System.out.println("No Appointment with id " + id);
+            return;
+        }
+        Appointment p = (Appointment) found;
+        p.reschedule(date, time);
+    }
 
 
 
