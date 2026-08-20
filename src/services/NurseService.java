@@ -1,5 +1,6 @@
 package services;
 
+import entities.Doctor;
 import entities.Nurse;
 import entities.Patient;
 import interfaces.Manageable;
@@ -88,7 +89,7 @@ public class NurseService implements Manageable, Searchable {
     }
     // Search Services
     @Override
-    public Object searchById(Long id) {
+    public Nurse searchById(Long id) {
         for (int i = 0; i < count; i++) {
             if (nurses[i].getId().equals(id)) {
                 return nurses[i];
@@ -116,4 +117,28 @@ public class NurseService implements Manageable, Searchable {
         }
         return result;
     }
+
+
+
+    public void listByShift(String shift) {
+        System.out.println("--- Nurses of " + shift + " shift ---");
+
+        boolean any = false;
+
+        for (int i = 0; i < count; i++) {
+            if (nurses[i].getShift().toString().equalsIgnoreCase(shift)) {
+                nurses[i].displaySummary();
+                any = true;
+            }
+        }
+
+        if (!any) {
+            System.out.println("(none)");
+        }
+    }
+
+
+
+
+
 }

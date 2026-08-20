@@ -89,7 +89,7 @@ public class HospitalApp {
     }
 
 
-
+    // doctor
     private void  doctorMenu() {
         System.out.println("*****Doctor*****");
         System.out.println("1. Add   2. View all   3. Remove   4. Search  5-Search ById  6. add Surgeon  7-assignPatient  8-Available Doctors");
@@ -160,6 +160,45 @@ public class HospitalApp {
 
         }
 
+         // Nurse
+         private void NurseMenu() {
+             System.out.println("*****Nurse*****");
+             System.out.println("1. Add   2. Remove ById  3. Search ById 4-Search  5. get All  6-listByShift  7-reassign");
+             int choice = input.readInt("Choose", 1, 5);
+
+             if (choice == 1) {
+                 String first = input.readText("First name");
+                 String last = input.readText("Last name");
+                 String bloodGroup = input.readText("Blood Group");
+                 Integer age = input.readInt("Enter age");
+                 Integer ysersex = input.readInt("Enter Years Experience");
+                 Long depId = input.readLong("Enter Department Id");
+                 Nurse p = nurseService.addNurse(first, last,depId,ysersex,age);
+                 System.out.println("Added Nurse with id " + p.getId());
+             }else if(choice == 2){
+                 Long id = input.readLong("Enter ID");
+                 nurseService.removeById(id);
+                 System.out.println("Successfully remove Nurse");
+             }
+             else if(choice == 3){
+                 Long id = input.readLong("Enter ID");
+                 Nurse p = nurseService.searchById(id);
+                 System.out.println("Nurse ID: " + p.getId() + " FullName :  " + p.getFullName() + "  Age: " + p.getAge());
+             }
+             else if(choice == 4){
+                 String keyword = input.readText("Search keyword");
+                 printEntities(nurseService.search(keyword));
+             } else if (choice == 5) {
+                 Object[] p = nurseService.getAll();
+                 for (Object nurse : p) {
+                     System.out.println(nurse);
+                 }
+             }else if(choice == 6){
+                 String shift = input.readText("Shift");
+                 nurseService.listByShift(shift);
+             }
+
+         }
 
 
 
