@@ -23,17 +23,17 @@ public class PatientService implements Manageable, Searchable {
     }
 
   // overloading :three ways to add to patient
-    public Patient addPatient(String firstName, String lastname) {
+    public Patient addPatient(String firstName, String lastname,Integer age) {
         Long pid = HelperUtils.generateId();
-        Patient patient = new Patient(pid, firstName, lastname);
+        Patient patient = new Patient(pid, firstName, lastname,age);
         patient.displayInfo();
         add(patient);
          return patient;
     }
 
-    public Patient addPatient(String name, String lastname, String bloodGroup) {
+    public Patient addPatient(String name, String lastname, String bloodGroup,Integer age) {
         Long pid = HelperUtils.generateId();
-        Patient patient = new Patient(pid,name,lastname,bloodGroup);
+        Patient patient = new Patient(pid,name,lastname,bloodGroup,age);
         add(patient);
          return patient;
     }

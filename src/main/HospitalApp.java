@@ -46,7 +46,8 @@ public class HospitalApp {
             String first = input.readText("First name");
             String last = input.readText("Last name");
             String bloodGroup = input.readText("Blood Group");
-            Patient p = patientService.addPatient(first, last, bloodGroup);
+            Integer age = input.readInt("Enter age");
+            Patient p = patientService.addPatient(first, last, bloodGroup,age);
             System.out.println("Added student with id " + p.getId());
         }
 
@@ -69,7 +70,36 @@ public class HospitalApp {
          System.out.println("\n[All people - polymorphic displayInfo]");
          printAll(people, count);
 
+
+         // find Oldest by age
+         System.out.println("Oldest person");
+         Person oldest = findOldest(people,count);
+         if (oldest != null) {
+             oldest.displaySummary();
+             System.out.println("Age: " + oldest.getAge());
+         }
+
+
+
      }
+
+
+
+    private Person findOldest(Person[] people, int count){
+        if(count == 0) {
+            return null;
+        }
+        Person oldest = people[0];
+
+        for (int i = 1; i < count; i++) {
+            if(people[i].getAge() > oldest.getAge()){
+                oldest = people[i];
+            }
+
+        }
+        return oldest;
+    }
+
 
     // Count By Type
 
@@ -139,7 +169,7 @@ public class HospitalApp {
     private void seedSampleData() {
         System.out.println("Seeding sample data...");
         Long pid = HelperUtils.generateId();
-        Patient p = new Patient(pid, "intisar", "said", "O");
+        Patient p = new Patient(pid, "intisar", "said", "O",30);
         p.addAllergy("AA");
         patientService.add(p);
 
