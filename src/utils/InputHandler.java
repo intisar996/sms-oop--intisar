@@ -58,6 +58,24 @@ public class InputHandler {
     }
 
 
+    public Boolean readBoolean(String prompt) {
+        while (true) {
+            System.out.print(prompt + " (true/false): ");
+            String line = scanner.nextLine().trim();
+
+            if (line.equalsIgnoreCase("true")) {
+                return true;
+            }
+
+            if (line.equalsIgnoreCase("false")) {
+                return false;
+            }
+
+            System.out.println("Please type true or false.");
+        }
+    }
+
+
 
     // read a whole number within min..max, repeating until it is valid
     public int readInt(String prompt, int min, int max) {

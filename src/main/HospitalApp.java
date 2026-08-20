@@ -92,7 +92,7 @@ public class HospitalApp {
 
     private void  doctorMenu() {
         System.out.println("*****Doctor*****");
-        System.out.println("1. Add   2. View all   3. Search   4. Update contact   5. Remove ");
+        System.out.println("1. Add   2. View all   3. Remove   4. Search  5-Search ById  6. add Surgeon  7-assignPatient  8-Available Doctors");
         int choice = input.readInt("Choose", 1, 5);
         Long doid = HelperUtils.generateId();
         if (choice == 1) {
@@ -106,9 +106,62 @@ public class HospitalApp {
             Doctor doctor = new Doctor(doid,first,last,age,fee, true,specialization);
             doctorService.add(doctor);
             System.out.println("Added student with id " + doctor.getId());
+        }else if(choice ==2){
+            Object[] d = doctorService.getAll();
+            for (Object doctor : d) {
+                System.out.println(doctor);
+            }
+            }else if(choice == 3){
+                Long id = input.readLong("Enter ID");
+                doctorService.removeById(id);
+                System.out.println("Successfully remove Doctor");
+            }else if(choice == 4){
+            String keyword = input.readText("Search keyword");
+            printEntities(doctorService.search(keyword));
+        }
+        else if(choice == 5){
+            Long id = input.readLong("Enter ID");
+            Doctor p = doctorService.searchById(id);
+            System.out.println("Doctor ID: " + p.getId() + " FullName :  " + p.getFullName() + "  Age: " + p.getAge());
+        } else if (choice == 6) {
+
+            Long id = input.readLong("Enter ID");
+            String firstName = input.readText("Enter First Name");
+            String lastName = input.readText("Enter Last Name");
+            Double consultationFee = input.readDouble("Enter Consultation Fee");
+            Integer experienceYears = input.readInt("Enter Experience Years");
+            Boolean isOnCall = input.readBoolean("Is On Call?");
+            String specialization = input.readText("Enter Specialization");
+            Boolean operationTheatreAccess = input.readBoolean("Operation Theatre Access?");
+
+            Surgeon surgeon = new Surgeon(
+                    id,
+                    firstName,
+                    lastName,
+                    consultationFee,
+                    experienceYears,
+                    isOnCall,
+                    specialization,
+                    operationTheatreAccess
+            );
+
+            doctorService.addSurgeon(surgeon);
+            System.out.println(
+                    "Doctor ID: " + surgeon.getId() +
+                            " FullName: " + surgeon.getFullName() +
+                            " Age: " + surgeon.getAge()
+            );
+        } else if (choice == 7) {
+            String spes = input.readText("Specialization");
+            doctorService.listBySpecialization(spes);
+        }else if (choice == 8) {
+            doctorService.availableDoctors();
         }
 
-    }
+        }
+
+
+
 
 
 

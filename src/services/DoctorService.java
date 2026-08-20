@@ -2,6 +2,7 @@ package services;
 
 import entities.Doctor;
 import entities.Patient;
+import entities.Surgeon;
 import interfaces.Manageable;
 import interfaces.Searchable;
 import utils.HelperUtils;
@@ -69,7 +70,7 @@ public class DoctorService implements Manageable, Searchable {
 
     // Search Services
     @Override
-    public Object searchById(Long id) {
+    public Doctor searchById(Long id) {
         for (int i = 0; i < count; i++) {
             if (doctors[i].getId().equals(id)) {
                 return doctors[i];
@@ -108,8 +109,6 @@ public class DoctorService implements Manageable, Searchable {
         return result;
     }
 
-
-
     // ---------- service-specific ---------
     public void updateFee(Long id,double fee) {
         Object found = searchById(id);
@@ -121,6 +120,56 @@ public class DoctorService implements Manageable, Searchable {
         d.updateFee(fee);
     }
 
+    public void assignPatient(Long id) {
+        Object found = searchById(id);
+        if (found == null) {
+            System.out.println("No Patient with id " + id);
+            return;
+        }
+        Doctor d = (Doctor) found;
+        d.assignPatient(id);
+    }
+
+    public void addSurgeon(Surgeon surgeon) {
+        if (count >= doctors.length) {
+            System.out.println("Cannot add surgeon.  is full.");
+            return;
+        }
+        doctors[count] = surgeon;
+        count++;
+
+        System.out.println("Surgeon added successfully.");
+    }
+
+
+    public void listBySpecialization(String specialization) {
+        System.out.println("--- Doctor of " + specialization + " ---");
+        boolean any = false;
+        for (int i = 0; i < count; i++) {
+            if (doctors[i].getSpecialization().equalsIgnoreCase(specialization)) {
+                doctors[i].displaySummary();
+                any = true;
+            }
+        }
+        if (!any) {
+            System.out.println("(none)");
+        }
+    }
+
+
+    public void availableDoctors() {
+        System.out.println("--- Available Doctors---");
+        boolean any = false;
+        for (int i = 0; i < count; i++) {
+            if (doctors[i].getPatientLoad() < 5) {
+                doctors[i].displaySummary();
+                any = true;
+            }
+        }
+        if (!any) {
+            System.out.println("(none)");
+        }
+    }
 
 
     public int getCount(){
