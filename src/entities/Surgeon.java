@@ -12,22 +12,19 @@ public class Surgeon extends  Doctor{
     private Boolean operationTheatreAccess;
     private List<Date> upcomingSurgeryDates;
 
-    public Surgeon(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots, Integer surgeriesPerformed, Boolean operationTheatreAccess, List<Date> upcomingSurgeryDates) {
+    public Surgeon(boolean active_status, String address, Integer age, Date dateOfBirth, String email, String firstName, String gender, long id, String lastName, String nationalId, String phoneNumber, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots, Boolean operationTheatreAccess) {
         super(active_status, address, age, dateOfBirth, email, firstName, gender, id, lastName, nationalId, phoneNumber, assignedPatientIds, consultationFee, experienceYears, isOnCall, specialization, timesSlots);
         setSurgeriesPerformed(surgeriesPerformed);
         setOperationTheatreAccess(operationTheatreAccess);
         setUpcomingSurgeryDates(upcomingSurgeryDates);
-
     }
 
-    public Surgeon(long id, String firstName, String lastName, List<Long> assignedPatientIds, Double consultationFee, Integer experienceYears, boolean isOnCall, String specialization, List<String> timesSlots, Integer surgeriesPerformed, Boolean operationTheatreAccess, List<Date> upcomingSurgeryDates) {
-        super(id, firstName, lastName, assignedPatientIds, consultationFee, experienceYears, isOnCall, specialization, timesSlots);
+    public Surgeon(long id, String firstName, String lastName, Double consultationFee, Integer experienceYears, Boolean isOnCall, String specialization, Boolean operationTheatreAccess) {
+        super(id, firstName, lastName, consultationFee, experienceYears, isOnCall, specialization);
         setSurgeriesPerformed(surgeriesPerformed);
         setOperationTheatreAccess(operationTheatreAccess);
         setUpcomingSurgeryDates(upcomingSurgeryDates);
-
     }
-
 
     public Integer getSurgeriesPerformed() {
         return surgeriesPerformed;

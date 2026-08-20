@@ -3,80 +3,74 @@ package services;
 import entities.Doctor;
 import entities.Patient;
 import interfaces.Manageable;
+import interfaces.Searchable;
 import utils.InputHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoctorService implements Manageable<Doctor> {
+public class DoctorService implements Manageable, Searchable {
 
+    private Doctor[] doctors;
+    private int count;
 
-
-    List<Doctor> doctorList = new ArrayList<>();
-
-
-    @Override
-    public void add(Doctor doctor) {
-        doctorList.add(doctor);
+    public DoctorService() {
+        doctors = new Doctor[20];
+        count = 0;
     }
 
-    @Override
-    public Boolean update(Long id) {
 
-        IO.readln("Enter Doctor ID");
-        Long doid = InputHandler.takeLongInput();
-        Doctor doctorUpdateFee = findDoctorById(doid);
-        if(doctorUpdateFee != null){
-            Double fee = Double.parseDouble(IO.readln("Enter consultation fee: "));
-            String reason = (IO.readln("Enter Reason: "));
-            doctorUpdateFee.updateFee(fee,reason);
-            doctorUpdateFee.updateFee(fee);
 
+
+    // ---------- Manageable ----------
+    public void add(Object item) {
+        if (item == null || !(item instanceof Doctor)) {
+            System.out.println("Rejected: not a Doctor.");
+            return;
         }
-
-
-
-
-        return null;
+        if (count >= doctors.length) {
+            System.out.println("Rejected: Doctor store is full.");
+            return;
+        }
+        doctors[count] = (Doctor) item;
+        count = count + 1;
     }
 
+    @Override
+    public Object[] getAll() {
+        Object[] result = new Object[count];
+        for(int i =0; i< count; i++){
+            result[i] = doctors[i];
+        }
+        return result;
+    }
 
-
-
-
-
-
-
-
-    // search patient by id
-    public Doctor findDoctorById(Long id){
-        for(Doctor d : doctorList){
-            if(d.getId().equals(id)){
-                return d;
+    // Search Services
+    @Override
+    public Object searchById(Long id) {
+        for (int i = 0; i < count; i++) {
+            if (doctors[i].getId().equals(id)) {
+                return doctors[i];
             }
         }
         return null;
     }
 
-
-
-    public void menuReslover(Integer option) {
-        if(option.equals(1)){
-            IO.println("add Doctor");
-            Long id = Long.parseLong(IO.readln("enter id"));
-            String firstName = IO.readln("Enter first name");
-            String lastName = IO.readln("Enter Last name");
-            Double fee = Double.parseDouble(IO.readln("Enter consultation fee: "));
-            Integer experienceYears = Integer.parseInt(IO.readln("Enter experience years: "));
-            Boolean isOnCall = Boolean.parseBoolean(IO.readln("Is doctor on call? true/false: "));
-            String specialization = IO.readln("Enter specialization: ");
-            Doctor doctor = new Doctor(id,firstName,lastName,fee,experienceYears,isOnCall,specialization);
-            add(doctor);
-            doctor.displayInfo();
-            System.out.println("Successfully add doctor");
-        } else if (option.equals(2)) {
-            IO.println("Update Patient Contact");
-            update(0l);
+    // ---------- service-specific ---------
+    public void updateFee(Long id,double fee) {
+        Object found = searchById(id);
+        if (found == null) {
+            System.out.println("No doctor with id " + id);
+            return;
         }
+        Doctor d = (Doctor) found;
+        d.updateFee(fee);
     }
+
+
+    public int getCount(){
+        return count;
+    }
+
+
 }

@@ -2,8 +2,10 @@ package interfaces;
 
 public interface Manageable<T> {
 
-    void add(T entity);
-    Boolean update(Long id);
+    void add(Object item);
+
+    Object[] getAll();
+
 
 
 }

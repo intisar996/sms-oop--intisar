@@ -7,12 +7,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
+
+
 public class HelperUtils {
 
 
 
 
-
+    private static Long idCounter = 1000L;
 
 
 
@@ -35,7 +37,7 @@ public class HelperUtils {
     }
 
     public static boolean isEmptyString(String text){
-        return text == null || text.trim().isEmpty();
+        return text == null || text.trim().length() == 0;
     }
 
     public static boolean isValidBirth(Date date){
@@ -70,6 +72,27 @@ public class HelperUtils {
 
     public static boolean  isPatientListEmpty(List<Patient> patientList) {
         return patientList == null || patientList.isEmpty();
+    }
+
+
+    // Id Generation
+
+    public static Long generateId() {
+        idCounter = idCounter + 1;
+        return  idCounter;
+    }
+
+    // ---------- range checks (2 overloads) ----------
+
+    public static boolean inRange(int value, int min, int max) {
+        return value >= min && value <= max;
+    }
+
+
+
+    // text alone: just must not be empty
+    public static boolean isValidText(String text) {
+        return !isEmptyString(text);
     }
 
 

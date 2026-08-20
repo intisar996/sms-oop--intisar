@@ -20,7 +20,8 @@ public class Appointment implements Displayable {
     public enum  Status {
         COMPLETE,
         CANCEL,
-        RESCHEDULE
+        RESCHEDULE,
+        SCHEDULE
 
     }
 
@@ -176,7 +177,27 @@ public class Appointment implements Displayable {
     }
 
 
-    
+
+    // addNotes overloads   [Task 2.2]
+
+// ---------- add notes to reason (2 overloads) ----------
+
+    // notes only
+    public void addNotes(String notes) {
+        if (HelperUtils.isEmptyString(notes)) {
+            return;
+        }
+        if (HelperUtils.isEmptyString(reason)) {
+            reason = notes;
+        } else {
+            reason = reason + " | " + notes;
+        }
+    }
+
+    // notes with an author
+    public void addNotes(String notes, String author) {
+        addNotes("(" + author + ") " + notes);
+    }
 
 
 
